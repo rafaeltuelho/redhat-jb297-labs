@@ -1,0 +1,6 @@
+.attach*
+.classpath
+.project
+.settings/
+target/
+*.forge_settings

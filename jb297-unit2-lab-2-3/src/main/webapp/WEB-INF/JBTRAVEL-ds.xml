@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+ <datasource jndi-name="java:jboss/datasources/JBTRAVEL" enabled="true" 
+     use-java-context="true" pool-name="JBTRAVEL">
+  <connection-url>jdbc:postgresql://vm.rhel7:5432/JBTRAVEL</connection-url>
+  <driver>postgresql-9.3-1101.jdbc41.jar</driver>
+  <security>
+   <user-name>JBTRAVEL_USER</user-name>
+   <password>jbtravel</password>
+  </security>
+ </datasource>
+</datasources>

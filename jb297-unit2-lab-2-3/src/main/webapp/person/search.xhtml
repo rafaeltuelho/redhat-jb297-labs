@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{personBean.page}"/>
+		<f:event type="preRenderView" listener="#{personBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Person entities"/>
+
+	<ui:define name="header">
+		Person
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Person entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="personBeanExampleFirstname" value="Firstname:"/>
+						<h:panelGroup>
+							<h:inputText id="personBeanExampleFirstname" maxLength="25" value="#{personBean.example.firstname}"/>
+							<h:message for="personBeanExampleFirstname" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="personBeanExampleLastname" value="Lastname:"/>
+						<h:panelGroup>
+							<h:inputText id="personBeanExampleLastname" maxLength="25" value="#{personBean.example.lastname}"/>
+							<h:message for="personBeanExampleLastname" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="personBeanExampleRelationBean" value="Relation Bean:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{relationBean.converter}" id="personBeanExampleRelationBean" value="#{personBean.example.relationBean}">
+								<f:selectItem/>
+								<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{relationBean.all}" var="_item"/>
+							</h:selectOneMenu>
+							<h:message for="personBeanExampleRelationBean" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action="#{personBean.search}" styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action="#{personBean.create}" styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="personBeanPageItems" styleClass="data-table" value="#{personBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Firstname"/>
+					</f:facet>
+					<h:link outcome="/person/view">
+						<f:param name="id" value="#{_item.uid}"/>
+						<h:outputText id="itemFirstname" value="#{_item.firstname}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Lastname"/>
+					</f:facet>
+					<h:link outcome="/person/view">
+						<f:param name="id" value="#{_item.uid}"/>
+						<h:outputText id="itemLastname" value="#{_item.lastname}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{personBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

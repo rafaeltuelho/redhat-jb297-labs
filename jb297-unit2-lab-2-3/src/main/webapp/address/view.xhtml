@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{addressBean.id}"/>
+		<f:event type="preRenderView" listener="#{addressBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Address"/>
+
+	<ui:define name="header">
+		Address
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Address
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="addressBeanAddressUid" value="Uid:"/>
+			<h:outputText id="addressBeanAddressUid" value="#{addressBean.address.uid}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressCity" value="City:"/>
+			<h:outputText id="addressBeanAddressCity" value="#{addressBean.address.city}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressCountry" value="Country:"/>
+			<h:outputText id="addressBeanAddressCountry" value="#{addressBean.address.country}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressStateProv" value="State Prov:"/>
+			<h:outputText id="addressBeanAddressStateProv" value="#{addressBean.address.stateProv}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressStreet" value="Street:"/>
+			<h:outputText id="addressBeanAddressStreet" value="#{addressBean.address.street}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressZipPost" value="Zip Post:"/>
+			<h:outputText id="addressBeanAddressZipPost" value="#{addressBean.address.zipPost}"/>
+			<h:outputText/>
+			<h:outputLabel for="addressBeanAddressPerson" value="Person:"/>
+			<h:panelGrid columnClasses="label,component,required" columns="3" id="addressBeanAddressPerson" rendered="#{!empty addressBean.address.person}">
+				<h:outputLabel for="addressBeanAddressPersonFirstname" value="Firstname:"/>
+				<h:outputText id="addressBeanAddressPersonFirstname" value="#{addressBean.address.person.firstname}"/>
+				<h:outputText/>
+				<h:outputLabel for="addressBeanAddressPersonLastname" value="Lastname:"/>
+				<h:outputText id="addressBeanAddressPersonLastname" value="#{addressBean.address.person.lastname}"/>
+				<h:outputText/>
+				<h:outputLabel for="addressBeanAddressPersonRelationBean" value="Relation Bean:"/>
+				<h:link id="addressBeanAddressPersonRelationBean" outcome="/relation/view" value="#{addressBean.address.person.relationBean}">
+					<f:param name="id" value="#{addressBean.address.person.relationBean.type}"/>
+				</h:link>
+				<h:outputText/>
+			</h:panelGrid>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>
